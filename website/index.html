@@ -71,7 +71,7 @@ connectButton.addEventListener('click', function(event) {
 	reader.onload = function(e) {
 		// binary data
 		console.log(e.target.result);
-		var result_ = hexDump(e.target.result);
+		var result_ = hex(e.target.result);
 		
                	let data_to_send = new ArrayBuffer(5 * 1024);
   		let bytes = new Uint8Array(data_to_send);
@@ -82,16 +82,6 @@ connectButton.addEventListener('click', function(event) {
 		}
 		transferFile(data_to_send);
 		
-		function hexDump(file) {
-		  return new Promise((res, rej) => {
-		    if (!(file instanceof Blob)) rej('wrong input');
-		    const reader = new FileReader();
-		    reader.onload = e => {
-		      res(hex(reader.result));
-		    };
-		    reader.onerror = e => rej('error while reading');
-		    reader.readAsArrayBuffer(file);
-		  });
 		  // gotten from https://developer.mozilla.org/en-US/docs/Web/API/SubtleCrypto/digest#Example
 		  function hex(buffer) {
 		    const hexCodes = [];
