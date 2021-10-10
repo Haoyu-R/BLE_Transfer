@@ -77,7 +77,7 @@ connectButton.addEventListener('click', function(event) {
 	};
 	reader.readAsBinaryString(file);
 	const contentString = String(reader.result);
-	let result = new ArrayBuffer(6 * 1024);
+	let result = new ArrayBuffer(30 * 1024);
   	let bytes = new Uint8Array(result);
   	for (var i = 0; i < bytes.length; ++i) {
     		var contentIndex = (i % contentString.length);
