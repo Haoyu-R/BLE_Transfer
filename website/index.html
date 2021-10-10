@@ -81,9 +81,13 @@ connectButton.addEventListener('click', function(event) {
   	let bytes = new Uint8Array(result);
   	for (var i = 0; i < bytes.length; ++i) {
     		var contentIndex = (i % contentString.length);
-    		bytes[i] = contentString.charCodeAt(contentIndex);
+    		bytes[i] = contentString.charCodeAt(contentIndex).toString(16);
+		if (bytes[i].length < 2) {
+                        bytes[i] = "0" + bytes[i];
+                }
  	 }
 	transferFile(result);
+	  
 });
 
   cancelTransferButton.addEventListener('click', function(event) {
