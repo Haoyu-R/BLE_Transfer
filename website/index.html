@@ -7,7 +7,7 @@
   <div>
     Test file transfer over BLE. To use:
     <ul>
-      <li>Flash an Arduino Nano BLE Sense board with <a href="https://github.com/petewarden/ble_file_transfer">the test sketch</a>.</li>
+      <li>Flash an Arduino Nano BLE Sense board with <a href="https://github.com/Haoyu-R/BLE_Transfer">the test sketch</a>.</li>
       <li>Click the connect button and pair with the board.</li>
       <li>Press the transfer file button.</li>
     </ul>
@@ -58,7 +58,7 @@ connectButton.addEventListener('click', function(event) {
   transferFileButton.addEventListener('click', function(event) {
     msg('Trying to write file ...');
     // You'll want to replace this with the data you want to transfer.
-    let fileContents = prepareDummyFileContents(30 * 1024);
+    let fileContents = prepareFileContents();
     transferFile(fileContents);
   });
   cancelTransferButton.addEventListener('click', function(event) {
@@ -141,14 +141,7 @@ async function connect() {
 }
 
 async function transferFile(fileContents) {
-  let maximumLengthValue = await fileMaximumLengthCharacteristic.readValue();
-  let maximumLengthArray = new Uint32Array(maximumLengthValue.buffer);
-  let maximumLength = maximumLengthArray[0];
-  if (fileContents.byteLength > maximumLength) {
-    msg("File length is too long: " + fileContents.byteLength + " bytes but maximum is " + maximumLength);
-    return;
-  }
-  
+
   if (isFileTransferInProgress) {
     msg("Another file transfer is already in progress");
     return;
