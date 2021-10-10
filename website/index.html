@@ -15,9 +15,6 @@
   </div>
   <div>
     <button id="connect-button">Connect</button>
-    <input type="file" id="file-input" />
-    <button id="read-button">Read File</button>
-    <pre id="file-contents"></pre>
     <button id="transfer-file-button">Transfer File</button>
     <button id="cancel-transfer-button">Cancel Transfer</button>
     <div id="status-label">Click button to connect to the board</div>
@@ -59,22 +56,28 @@ if (!("bluetooth" in navigator)) {
 connectButton.addEventListener('click', function(event) {
   connect();
   var fileContents;
-  document.querySelector("#read-button").addEventListener('click', function() {
-		let file = document.querySelector("#file-input").files[0];
-		let reader = new FileReader();
-		reader.addEventListener('load', function(e) {
-	    		let text = e.target.result;
-	    		document.querySelector("#file-contents").textContent = text;
-		});
-		reader.readAsArray(file);
-    
-    fileContents = reader.result;
-    });
     
   transferFileButton.addEventListener('click', function(event) {
     msg('Trying to write file ...');
     // You'll want to replace this with the data you want to transfer. 
-  transferFile(fileContents);
+	document.getElementById('inputfile')
+            .addEventListener('change', function() {
+            
+            if (this.files.length === 0) {
+		console.log('No file selected.');
+		return;
+	    }
+            
+            
+            var fr=new FileReader();
+            fr.onload=function(){
+                document.getElementById('output')
+                        .textContent=fr.result;
+            }
+              
+            fr.readAsArrayBuffer()(this.files[0]);
+        })
+  transferFile(fr.result);
   });
   cancelTransferButton.addEventListener('click', function(event) {
     msg('Trying to cancel transfer ...');
