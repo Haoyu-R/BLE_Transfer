@@ -67,11 +67,11 @@ connectButton.addEventListener('click', function(event) {
 	    		let text = e.target.result;
 	    		document.querySelector("#file-contents").textContent = text;
 		});
-		reader.readAsText(file);
+		reader.readAsArray(file);
     
-    let fileContents = reader.result;
+    var fileContents = reader.result;
 	});
-    
+    transferFile(fileContents);
   });
   cancelTransferButton.addEventListener('click', function(event) {
     msg('Trying to cancel transfer ...');
