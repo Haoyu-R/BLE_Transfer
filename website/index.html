@@ -81,16 +81,13 @@ connectButton.addEventListener('click', function(event) {
     			bytes[i] = this.result.charCodeAt(contentIndex).toString(16);
 		}
 		transferFile(data_to_send);
-
 	};
 	reader.onerror = function(e) {
 		// error occurred
 		console.log('Error : ' + e.type);
 	};
 	reader.readAsBinaryString(file);
-	
-  
-	  
+
 });
 
   cancelTransferButton.addEventListener('click', function(event) {
