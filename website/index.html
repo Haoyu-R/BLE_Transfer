@@ -75,7 +75,7 @@ connectButton.addEventListener('click', function(event) {
 		// error occurred
 		console.log('Error : ' + e.type);
 	};
-	reader.readAsBinaryString(file);
+	reader.readAsArrayBuffer(file);
 	  
 	let result = new ArrayBuffer(6 * 1024);
   	let bytes = new Uint8Array(result);
