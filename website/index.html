@@ -82,8 +82,7 @@ connectButton.addEventListener('click', function(event) {
 		}
 		transferFile(data_to_send);
 		
-		  // gotten from https://developer.mozilla.org/en-US/docs/Web/API/SubtleCrypto/digest#Example
-		  function hex(buffer) {
+		function hex(buffer) {
 		    const hexCodes = [];
 		    const view = new DataView(buffer);
 		    for (let i = 0; i < view.byteLength; i += 4) {
@@ -104,12 +103,6 @@ connectButton.addEventListener('click', function(event) {
 		    return hexCodes.join(' ');
 		  }
 			
-		function bufferToHex (buffer) {
-		    return [...new Uint8Array (buffer)]
-			.map (b => b.toString (16).padStart (2, "0"))
-			.join ("");
-		}
-	};
 	reader.onerror = function(e) {
 		// error occurred
 		console.log('Error : ' + e.type);
