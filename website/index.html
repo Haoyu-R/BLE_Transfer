@@ -71,16 +71,22 @@ connectButton.addEventListener('click', function(event) {
 	reader.onload = function(e) {
 		// binary data
 		console.log(e.target.result);
-		var result = e.target.result;
+		var result = bufferToHex(e.target.result);
 		
                	let data_to_send = new ArrayBuffer(5 * 1024);
   		let bytes = new Uint8Array(data_to_send);
 		
 		for (var i = 0; i < bytes.length; ++i) {
-    			var contentIndex = (i % this.result.length);
-    			bytes[i] = this.result.charCodeAt(contentIndex).toString(16);
+    			var contentIndex = (i % result.length);
+    			bytes[i] = result.charCodeAt(contentIndex);
 		}
 		transferFile(data_to_send);
+		
+		function bufferToHex (buffer) {
+		    return [...new Uint8Array (buffer)]
+			.map (b => b.toString (16).padStart (2, "0"))
+			.join ("");
+		}
 	};
 	reader.onerror = function(e) {
 		// error occurred
