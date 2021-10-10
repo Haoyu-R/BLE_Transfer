@@ -191,15 +191,17 @@ function onTransferStatusChanged(event) {
   }
 }
 
-function prepareDummyFileContents(fileLength) {
-  let result = new ArrayBuffer(fileLength);
-  let bytes = new Uint8Array(result);
-  const contentString = 'The quick brown fox jumped over the lazy dog. ';
-  for (var i = 0; i < bytes.length; ++i) {
-    var contentIndex = (i % contentString.length);
-    bytes[i] = contentString.charCodeAt(contentIndex);
-  }
-  return result;
+function prepareFileContents() {
+  const file = document.querySelector('#select-file').files[0];
+  const reader = new FileReader();
+
+  reader.onload = res => {
+    console.log(res.target.result); // Print file contents
+  };
+  reader.onerror = err => console.log(err);
+
+  reader.readAsArrayBuffer(file);
+  return reader.result;
 }
      
 // See http://home.thep.lu.se/~bjorn/crc/ for more information on simple CRC32 calculations.
