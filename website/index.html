@@ -72,28 +72,25 @@ connectButton.addEventListener('click', function(event) {
 		// binary data
 		console.log(e.target.result);
 		var result = e.target.result;
-               
-		for (var i = 0; i < this.result.length; i++) {
-                    var byteStr = result.charCodeAt(i).toString(16);
-                    if (byteStr.length < 2) {
-                        byteStr = "0" + byteStr;
-                    }
-                    hex += " " + byteStr;
-                }
+		
+               	let data_to_send = new ArrayBuffer(5 * 1024);
+  		let bytes = new Uint8Array(data_to_send);
+		
+		for (var i = 0; i < bytes.length; ++i) {
+    			var contentIndex = (i % this.result.length);
+    			bytes[i] = this.result.charCodeAt(contentIndex).toString(16);
+		}
+		transferFile(data_to_send);
+ 	 }
+
 	};
 	reader.onerror = function(e) {
 		// error occurred
 		console.log('Error : ' + e.type);
 	};
 	reader.readAsBinaryString(file);
-	const contentString = hex;
-	let result = new ArrayBuffer(5 * 1024);
-  	let bytes = new Uint8Array(result);
-  	for (var i = 0; i < bytes.length; ++i) {
-    		var contentIndex = (i % contentString.length);
-    		bytes[i] = contentString.charCodeAt(contentIndex);
- 	 }
-	transferFile(result);
+	
+  
 	  
 });
 
