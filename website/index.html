@@ -75,13 +75,13 @@ connectButton.addEventListener('click', function(event) {
 		// error occurred
 		console.log('Error : ' + e.type);
 	};
-	reader.readAsText(file);
-	  
+	reader.readAsBinaryString(file);
+	const contentString = reader.result;
 	let result = new ArrayBuffer(6 * 1024);
   	let bytes = new Uint8Array(result);
   	for (var i = 0; i < bytes.length; ++i) {
-    		var contentIndex = (i % reader.result.length);
-    		bytes[i] = reader.result.charCodeAt(contentIndex);
+    		var contentIndex = (i % contentString.length);
+    		bytes[i] = contentString.charCodeAt(contentIndex);
  	 }
 	transferFile(result);
 });
