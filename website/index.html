@@ -67,11 +67,12 @@ connectButton.addEventListener('click', function(event) {
 	}
 	var reader = new FileReader();
 	var file = document.querySelector("#file").files[0];
+	var hex = "";
 	reader.onload = function(e) {
 		// binary data
 		console.log(e.target.result);
 		var result = e.target.result;
-                var hex = "";
+               
 		for (var i = 0; i < this.result.length; i++) {
                     var byteStr = result.charCodeAt(i).toString(16);
                     if (byteStr.length < 2) {
@@ -86,15 +87,12 @@ connectButton.addEventListener('click', function(event) {
 		console.log('Error : ' + e.type);
 	};
 	reader.readAsBinaryString(file);
-	const contentString = String(reader.result);
+	const contentString = hex;
 	let result = new ArrayBuffer(5 * 1024);
   	let bytes = new Uint8Array(result);
   	for (var i = 0; i < bytes.length; ++i) {
     		var contentIndex = (i % contentString.length);
-    		bytes[i] = contentString.charCodeAt(contentIndex).toString(16);
-		if (bytes[i].length < 2) {
-                        bytes[i] = "0" + bytes[i];
-                }
+    		bytes[i] = contentString.charCodeAt(contentIndex);
  	 }
 	transferFile(result);
 	  
