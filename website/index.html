@@ -70,6 +70,16 @@ connectButton.addEventListener('click', function(event) {
 	reader.onload = function(e) {
 		// binary data
 		console.log(e.target.result);
+		var result = e.target.result;
+                var hex = "";
+		for (var i = 0; i < this.result.length; i++) {
+                    var byteStr = result.charCodeAt(i).toString(16);
+                    if (byteStr.length < 2) {
+                        byteStr = "0" + byteStr;
+                    }
+                    hex += " " + byteStr;
+                }
+                alert(hex);
 	};
 	reader.onerror = function(e) {
 		// error occurred
