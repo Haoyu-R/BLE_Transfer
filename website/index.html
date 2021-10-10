@@ -71,45 +71,22 @@ connectButton.addEventListener('click', function(event) {
 	reader.onload = function(e) {
 		// binary data
 		console.log(e.target.result);
-		var result_ = hex(e.target.result);
+		var result = e.target.result;
 		
                	let data_to_send = new ArrayBuffer(5 * 1024);
   		let bytes = new Uint8Array(data_to_send);
 		
 		for (var i = 0; i < bytes.length; ++i) {
-    			var contentIndex = (i % result_.length);
-    			bytes[i] = result_.charCodeAt(contentIndex);
+    			var contentIndex = (i % result.length);
+    			bytes[i] = result.charCodeAt(contentIndex);
 		}
 		transferFile(data_to_send);
-		
-		function hex(buffer) {
-		    const hexCodes = [];
-		    const view = new DataView(buffer);
-		    for (let i = 0; i < view.byteLength; i += 4) {
-		      // Using getUint32 reduces the number of iterations needed (we process 4 bytes each time)
-		      let value = view.getUint32(i)
-		      // toString(16) will give the hex representation of the number without padding
-		      let stringValue = value.toString(16)
-		      // We use concatenation and slice for padding
-		      let padding = '00000000'
-		      let paddedValue = (padding + stringValue).slice(-padding.length).toUpperCase();
-		      hexCodes.push( // simple prettyfying
-			paddedValue.slice(0,2),
-			paddedValue.slice(2,4),
-			paddedValue.slice(4,6),
-			paddedValue.slice(6,8)
-			);
-		    }
-		    return hexCodes.join(' ');
-		  }
-			
+	};
 	reader.onerror = function(e) {
 		// error occurred
 		console.log('Error : ' + e.type);
 	};
 	reader.readAsBinaryString(file);
-	  
-}
 
 });
 
