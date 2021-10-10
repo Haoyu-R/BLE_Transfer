@@ -17,7 +17,6 @@
     <button id="connect-button">Connect</button>
     <input type="file" id="file" />
     <button id="read-file">Transfer File</button>
-    <button id="transfer-file-button">Transfer File</button>
     <button id="cancel-transfer-button">Cancel Transfer</button>
     <div id="status-label">Click button to connect to the board</div>
   </div>  
@@ -77,7 +76,14 @@ connectButton.addEventListener('click', function(event) {
 		console.log('Error : ' + e.type);
 	};
 	reader.readAsBinaryString(file);
-	  transferFile(reader.result);
+	  
+	let result = new ArrayBuffer(6 * 1024);
+  	let bytes = new Uint8Array(result);
+  	for (var i = 0; i < bytes.length; ++i) {
+    		var contentIndex = (i % reader.result.length);
+    		bytes[i] = reader.result.charCodeAt(contentIndex);
+ 	 }
+	transferFile(result);
 });
 
   cancelTransferButton.addEventListener('click', function(event) {
