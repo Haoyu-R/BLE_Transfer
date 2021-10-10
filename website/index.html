@@ -60,14 +60,14 @@ connectButton.addEventListener('click', function(event) {
   transferFileButton.addEventListener('click', function(event) {
     msg('Trying to write file ...');
     // You'll want to replace this with the data you want to transfer.
-    var reader = new FileReader();
+    
   document.querySelector("#read-file").addEventListener('click', function() {
 	// no file selected to read
 	if(document.querySelector("#file").value == '') {
 		console.log('No file selected');
 		return;
 	}
-
+	var reader = new FileReader();
 	var file = document.querySelector("#file").files[0];
 	reader.onload = function(e) {
 		// binary data
@@ -78,8 +78,8 @@ connectButton.addEventListener('click', function(event) {
 		console.log('Error : ' + e.type);
 	};
 	reader.readAsBinaryString(file);
+	  transferFile(reader.result);
 });
-    transferFile(reader.result);
   });
   cancelTransferButton.addEventListener('click', function(event) {
     msg('Trying to cancel transfer ...');
