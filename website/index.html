@@ -196,6 +196,7 @@ function onTransferStatusChanged(event) {
 function prepareDummyFileContents(fileLength) {
   let result = new ArrayBuffer(fileLength);
   let bytes = new Uint8Array(result);
+  var reader = new FileReader();
   document.querySelector("#read-file").addEventListener('click', function() {
 	// no file selected to read
 	if(document.querySelector("#file").value == '') {
@@ -204,8 +205,6 @@ function prepareDummyFileContents(fileLength) {
 	}
 
 	var file = document.querySelector("#file").files[0];
-
-	var reader = new FileReader();
 	reader.onload = function(e) {
 		// binary data
 		console.log(e.target.result);
