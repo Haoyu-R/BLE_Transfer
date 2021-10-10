@@ -18,7 +18,6 @@
     <button id="transfer-file-button">Transfer File</button>
     <button id="cancel-transfer-button">Cancel Transfer</button>
     <div id="status-label">Click button to connect to the board</div>
-    <input type="file" id="fileInput">  
   </div>  
 </body>
    <script type="text/javascript">
@@ -60,6 +59,7 @@ connectButton.addEventListener('click', function(event) {
     msg('Trying to write file ...');
     // You'll want to replace this with the data you want to transfer. 
     var fileContents;
+    <input type="file" id="fileInput">
     document.getElementById('fileInput').addEventListener('change', function selectedFileChanged() {
 	  if (this.files.length === 0) {
 	    console.log('No file selected.');
