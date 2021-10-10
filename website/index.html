@@ -56,18 +56,23 @@ if (!("bluetooth" in navigator)) {
      
 connectButton.addEventListener('click', function(event) {
   connect();
-  var fileContents;
-    transferFileButton.addEventListener('click', function(event) {
+  transferFileButton.addEventListener('click', function(event) {
     msg('Trying to write file ...');
-    // You'll want to replace this with the data you want to transfer.
-    var fr=new FileReader();
-    fr.onload=function(){
-	// when the reader is done, the content is in reader.result.
-	console.log(reader.result);
-    }
-
-    fr.readAsArrayBuffer(this.files[0]);
-    let fileContents = reader.result;
+    // You'll want to replace this with the data you want to transfer. 
+    var fileContents;
+    document.getElementById('fileInput').addEventListener('change', function selectedFileChanged() {
+	  if (this.files.length === 0) {
+	    console.log('No file selected.');
+	    return;
+	  }
+	  const reader = new FileReader();
+	  reader.onload = function fileReadCompleted() {
+	    // when the reader is done, the content is in reader.result.
+	    console.log(reader.result);
+	    fileContents = reader.result;
+	  };
+	  reader.readAsArrayBuffer(this.files[0]);
+	});
     transferFile(fileContents);
   });
   cancelTransferButton.addEventListener('click', function(event) {
